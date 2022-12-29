@@ -1593,6 +1593,15 @@ pub const ModuleLoader = struct {
                         .hash = 0,
                     };
                 },
+                .@"node:dns" => {
+                    return ResolvedSource{
+                        .allocator = null,
+                        .source_code = ZigString.init(jsModuleFromFile(jsc_vm.load_builtins_from_path, "dns.exports.js")),
+                        .specifier = ZigString.init("node:dns"),
+                        .source_url = ZigString.init("node:dns"),
+                        .hash = 0,
+                    };
+                },
                 .@"node:fs" => {
                     if (comptime Environment.isDebug) {
                         return ResolvedSource{
@@ -1984,6 +1993,7 @@ pub const HardcodedModule = enum {
     @"node:child_process",
     @"node:crypto",
     @"node:events",
+    @"node:dns",
     @"node:fs",
     @"node:fs/promises",
     @"node:http",
@@ -2028,6 +2038,7 @@ pub const HardcodedModule = enum {
             .{ "node:child_process", HardcodedModule.@"node:child_process" },
             .{ "node:crypto", HardcodedModule.@"node:crypto" },
             .{ "node:events", HardcodedModule.@"node:events" },
+            .{ "node:dns", HardcodedModule.@"node:dns" },
             .{ "node:fs", HardcodedModule.@"node:fs" },
             .{ "node:fs/promises", HardcodedModule.@"node:fs/promises" },
             .{ "node:http", HardcodedModule.@"node:http" },
@@ -2071,6 +2082,7 @@ pub const HardcodedModule = enum {
             .{ "detect-libc/lib/detect-libc.js", "detect-libc" },
             .{ "events", "node:events" },
             .{ "ffi", "bun:ffi" },
+            .{ "dns", "node:dns" },
             .{ "fs", "node:fs" },
             .{ "fs/promises", "node:fs/promises" },
             .{ "http", "node:http" },
@@ -2082,6 +2094,7 @@ pub const HardcodedModule = enum {
             .{ "node:child_process", "node:child_process" },
             .{ "node:crypto", "node:crypto" },
             .{ "node:events", "node:events" },
+            .{ "node:dns", "node:dns" },
             .{ "node:fs", "node:fs" },
             .{ "node:fs/promises", "node:fs/promises" },
             .{ "node:http", "node:http" },

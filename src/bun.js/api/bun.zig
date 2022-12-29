@@ -560,6 +560,7 @@ pub fn getImportedStyles(
     return JSValue.createStringArray(ctx.ptr(), styles.ptr, styles.len, true).asRef();
 }
 
+// OS Creation
 pub fn newOs(
     _: void,
     ctx: js.JSContextRef,
@@ -569,6 +570,17 @@ pub fn newOs(
     _: js.ExceptionRef,
 ) js.JSValueRef {
     return Node.Os.create(ctx.ptr()).asObjectRef();
+}
+
+pub fn newDns(
+    _: void,
+    ctx: js.JSContextRef,
+    _: js.JSObjectRef,
+    _: js.JSObjectRef,
+    _: []const js.JSValueRef,
+    _: js.ExceptionRef,
+) js.JSValueRef {
+    return Node.Dns.create(ctx.ptr()).asObjectRef();
 }
 
 pub fn newPath(
@@ -867,6 +879,7 @@ pub fn sleepSync(
     return js.JSValueMakeUndefined(ctx);
 }
 
+// FS definition
 pub fn createNodeFS(
     _: void,
     ctx: js.JSContextRef,
@@ -1136,6 +1149,10 @@ pub const Class = NewClass(
         },
         .fs = .{
             .rfn = &Bun.createNodeFS,
+            .enumerable = false,
+        },
+        .dns = .{
+            .rfn = Bun.newDns,
             .enumerable = false,
         },
         .jest = .{
